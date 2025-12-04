@@ -504,4 +504,91 @@ tr:hover td {
 .add-judge-form {
   display: flex;
   align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  background: white;
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+.judge-input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.add-btn {
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.add-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.judges-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.judge-item {
+  background: white;
+  padding: 15px 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: var(--transition);
+  border-left: 4px solid var(--gold-accent);
+}
+
+.judge-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.judge-info span {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+
+.remove-btn {
+  background: transparent;
+  color: #999;
+  border: 1px solid #ddd;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.remove-btn:hover {
+  background: #fff5f5;
+  color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.empty-text {
+  text-align: center;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin-top: 30px;
 }
