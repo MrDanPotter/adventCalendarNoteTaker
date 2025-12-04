@@ -14,44 +14,78 @@ export const AppProvider = ({ children }) => {
       if (parsed.raters && !parsed.judges) {
         return parsed.raters;
       }
-      return parsed.judges || INITIAL_JUDGES;
+      return parsed.judges || [];
     }
-    return INITIAL_JUDGES;
+    return [];
+  });
+
+  const [judgeAvatars, setJudgeAvatars] = useState(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      return parsed.judgeAvatars || {};
+    }
+    return {};
   });
 
   const [days, setDays] = useState(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
-    return saved ? JSON.parse(saved).days : {};
+    return saved ? (JSON.parse(saved).days || {}) : {};
   });
 
   useEffect(() => {
-    // Save as judges, preserving days
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ judges, days }));
-  }, [judges, days]);
+    const dataToSave = {
+      judges,
+      judgeAvatars,
+      days
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
+  }, [judges, judgeAvatars, days]);
 
-  const addJudge = (name) => {
+  const addJudge = (name, avatar = null) => {
     if (name && !judges.includes(name)) {
       setJudges([...judges, name]);
+      if (avatar) {
+        setJudgeAvatars(prev => ({ ...prev, [name]: avatar }));
+      }
     }
   };
 
   const removeJudge = (name) => {
     setJudges(judges.filter(r => r !== name));
+    setJudgeAvatars(prev => {
+      const newAvatars = { ...prev };
+      delete newAvatars[name];
+      return newAvatars;
+    });
   };
 
-  const updateDay = (dayId, dayData) => {
+  const updateJudgeAvatar = (name, avatar) => {
+    setJudgeAvatars(prev => ({ ...prev, [name]: avatar }));
+  };
+
+  const updateDay = (dayId, data) => {
     setDays(prev => ({
       ...prev,
-      [dayId]: dayData
+      [dayId]: { ...prev[dayId], ...data }
     }));
   };
 
   const getDay = (dayId) => {
-    return days[dayId] || { chocolateName: '', studio: '', ratings: {} };
+    return days[dayId] || {};
   };
 
   return (
-    <AppContext.Provider value={{ judges, days, addJudge, removeJudge, updateDay, getDay }}>
+    <AppContext.Provider value={{
+      judges,
+      judgeAvatars,
+      days,
+      addJudge,
+      removeJudge,
+      updateJudgeAvatar,
+      getDay,
+      updateDay
+    }}>
       {children}
     </AppContext.Provider>
   );

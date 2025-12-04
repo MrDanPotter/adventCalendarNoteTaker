@@ -35,7 +35,7 @@ const MainContent = () => {
         {view === 'dashboard' && (
           <>
             <Dashboard onSelectDay={handleDaySelect} />
-            <SummaryTable days={days} judges={judges} />
+            <SummaryTable days={days} judges={judges} onRowClick={handleDaySelect} />
           </>
         )}
         {view === 'settings' && <Settings onBack={goHome} />}

@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 
-const SummaryTable = ({ days, judges }) => {
+const SummaryTable = ({ days, judges, onRowClick }) => {
     const [sortConfig, setSortConfig] = useState({ key: 'day', direction: 'asc' });
 
     const tableData = useMemo(() => {
@@ -69,7 +69,7 @@ const SummaryTable = ({ days, judges }) => {
                     </thead>
                     <tbody>
                         {sortedData.map((row, index) => (
-                            <tr key={index}>
+                            <tr key={index} onClick={() => onRowClick && onRowClick(row.day)} className="clickable-row">
                                 <td>{row.judge}</td>
                                 <td>{row.day}</td>
                                 <td>{row.rating}</td>
